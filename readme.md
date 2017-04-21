@@ -119,6 +119,8 @@ docker push localhost:5000/myfirstimage
 ### Step 4 - Verificar lista de imagenes
 
 ```
+docker run -it --rm --net=host centos bash
+
 curl http://localhost:5000/v2/_catalog
 ```
 
@@ -129,6 +131,13 @@ docker stop registry && docker rm -v registry
 ```
 
 ## USE CASE 3.1 - Share image using registry
+
+So sad man wants to deploy ToDos App in Russia, the server has the following specifications:
+Amazon EC2 - t1.micro
+  - vCPU: 1
+  - MEM: 0.6GB
+They have an good Internet connection, also they want periodical updates.
+
 
 ### Step 1 - Deploy un docker registry
 
