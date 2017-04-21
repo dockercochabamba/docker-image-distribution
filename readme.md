@@ -113,25 +113,34 @@ $ docker load --input todos.tar
 
 ## USE CASE 3.0 - Share image using registry
 
-### Step 1 - Deploy un docker registry
+So sad man wants to deploy ToDos App in Russia, the server has the following specifications:
+
+Amazon EC2 - t1.micro
+  - vCPU: 1
+  - MEM: 0.6GB
+
+They have an good Internet connection, also they want periodical updates.
+
+
+### Step 1 - Deploy my first registry
 
 ```
 docker run -d -p 5000:5000 --name registry registry:2
 ```
 
-### Step 2 - Tag mi image para subirla al registro
+### Step 2 - Tag a docker image
 
 ```
 docker tag alpine localhost:5000/myfirstimage
 ```
 
-### Step 3 - Push mi primera imagen
+### Step 3 - Push my first image into local registry
 
 ```
 docker push localhost:5000/myfirstimage
 ```
 
-### Step 4 - Verificar lista de imagenes
+### Step 4 - Check images
 
 ```
 docker run -it --rm --net=host centos bash
@@ -139,7 +148,7 @@ docker run -it --rm --net=host centos bash
 curl http://localhost:5000/v2/_catalog
 ```
 
-### Step 5 - Detener el servicio y eliminar el contenedor
+### Step 5 - Stop & Remove registry
 
 ```
 docker stop registry && docker rm -v registry
@@ -147,14 +156,7 @@ docker stop registry && docker rm -v registry
 
 ## USE CASE 3.1 - Share image using registry
 
-So sad man wants to deploy ToDos App in Russia, the server has the following specifications:
-Amazon EC2 - t1.micro
-  - vCPU: 1
-  - MEM: 0.6GB
-They have an good Internet connection, also they want periodical updates.
-
-
-### Step 1 - Deploy un docker registry
+### Step 1 - Deploy a registry
 
 ```
 docker run -d -p 5000:5000 --restart=always \
@@ -163,31 +165,31 @@ docker run -d -p 5000:5000 --restart=always \
       registry:2
 ```
 
-### Step 2 - Tag mi image para subirla al registro
+### Step 2 - Tag my image
 
 ```
 docker tag todos:1.0.0 localhost:5000/todos:1.0.0
 ```
 
-### Step 3 - Push todos:1.0.0 al registro
+### Step 3 - Push todos:1.0.0 into registry
 
 ```
 docker push localhost:5000/todos:1.0.0
 ```
 
-### Step 4 - Eliminar la imagen local
+### Step 4 - Remove image from my local cache
 
 ```
 docker rmi todos:1.0.0
 ```
 
-### Step 5 - Pull todos:1.0.0 del registro
+### Step 5 - Pull todos:1.0.0 from local registry
 
 ```
 docker pull localhost:5000/todos:1.0.0
 ```
 
-### Step 6 - Detener el servicio y eliminar el contenedor
+### Step 6 - Stop & Remove registry
 
 ```
 docker stop registry && docker rm -v registry
