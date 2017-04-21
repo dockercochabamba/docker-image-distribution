@@ -1,5 +1,5 @@
 # Docker Meteor
-FROM node:4.4.7-alpine
+FROM node:4.8.1-alpine
 MAINTAINER Docker Cbba
 
 ENV BUILD_PACKAGES="python make gcc g++ git libuv bash curl tar bzip2" \
