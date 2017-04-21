@@ -58,11 +58,11 @@ Unknown but same to “EC2 - t1.micro”
   - MEM: 0.6GB
 They have not a Internet connection, but there is a USB port in the server.
 
-# Usage
+### Usage
 ```
 $ docker save [OPTIONS] IMAGE [IMAGE...]
 ```
-# Step 1 - Create a backup that can then be used with docker load.
+### Step 1 - Create a backup that can then be used with docker load.
  - Way 1 
 ```
 $ docker save todos > todos.tar
@@ -84,16 +84,27 @@ $ ls -sh todos.tar
 ```
 $ docker save -o todos.tar todos
 
-$ docker save -o todos.tar todos
+$ ls -sh todos.tar
+
+2.7M todos.tar
+
 ```
-# Step 2 - Load an image from a tar archive or STDIN.
+- Way 4 (More compression)
+```
+$ docker save alpine:latest | bzip2 > compresed.tar
+
+$ ls -sh todos.tar
+
+1.7M todos.tar
+```
+### Step 2 - Load an image from a tar archive or STDIN.
 - Way 1
 ```
-docker load < todos.tar
+$ docker load < todos.tar
 ```
 - Way 2
 ```
-docker load --input todos.tar
+$ docker load --input todos.tar
 ```
 
 ## USE CASE 3.0 - Share image using registry
