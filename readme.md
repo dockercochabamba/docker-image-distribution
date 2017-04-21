@@ -91,7 +91,7 @@ $ ls -sh todos.tar
 ```
 - Way 4 (More compression)
 ```
-$ docker save alpine:latest | bzip2 > compresed.tar
+$ docker save todos | bzip2 > todos.tar
 
 $ ls -sh todos.tar
 
