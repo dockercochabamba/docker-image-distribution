@@ -51,6 +51,50 @@ pwd
 cowsay -f turkey.cow aaa
 ```
 
+## USE CASE 2.0 - Share image as file
+So happy man wants to deploy ToDos App in North Korea, the server has the following specifications:
+Unknown but same to “EC2 - t1.micro”
+  - vCPU: 1
+  - MEM: 0.6GB
+They have not a Internet connection, but there is a USB port in the server.
+
+# Usage
+```
+$ docker save [OPTIONS] IMAGE [IMAGE...]
+```
+# Step 1 - Create a backup that can then be used with docker load.
+ - Way 1 
+```
+$ docker save todos > todos.tar
+
+$ ls -sh busybox.tar
+
+2.7M busybox.tar
+```
+- Way 2
+```
+$ docker save --output todos.tar todos
+
+$ ls -sh todos.tar
+
+2.7M busybox.tar
+
+```
+- Way 3
+```
+$ docker save -o todos.tar todos
+
+$ docker save -o todos.tar todos
+```
+# Step 2 - Load an image from a tar archive or STDIN.
+- Way 1
+```
+docker load < busybox.tar.gz
+```
+- Way 2
+```
+docker load --input fedora.tar
+```
 
 ## USE CASE 3.0 - Share image using registry
 
