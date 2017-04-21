@@ -67,9 +67,9 @@ $ docker save [OPTIONS] IMAGE [IMAGE...]
 ```
 $ docker save todos > todos.tar
 
-$ ls -sh busybox.tar
+$ ls -sh todos.tar
 
-2.7M busybox.tar
+2.7M todos.tar
 ```
 - Way 2
 ```
@@ -77,7 +77,7 @@ $ docker save --output todos.tar todos
 
 $ ls -sh todos.tar
 
-2.7M busybox.tar
+2.7M todos.tar
 
 ```
 - Way 3
@@ -89,11 +89,11 @@ $ docker save -o todos.tar todos
 # Step 2 - Load an image from a tar archive or STDIN.
 - Way 1
 ```
-docker load < busybox.tar.gz
+docker load < todos.tar
 ```
 - Way 2
 ```
-docker load --input fedora.tar
+docker load --input todos.tar
 ```
 
 ## USE CASE 3.0 - Share image using registry
