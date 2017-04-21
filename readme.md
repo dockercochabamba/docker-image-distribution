@@ -67,48 +67,46 @@ $ docker save [OPTIONS] IMAGE [IMAGE...]
 ```
 
 ### Step 1 - Create a backup that can then be used with docker load.
- - Way 1 
-```
-$ docker save todos > todos.tar
-
-$ ls -sh todos.tar
-
-2.7M todos.tar
-```
-- Way 2
-```
-$ docker save --output todos.tar todos
-
-$ ls -sh todos.tar
-
-2.7M todos.tar
 
 ```
-- Way 3
+docker save todos:1.0.0 > todos.tar
+docker save --output todos_2.tar todos:1.0.0
+docker save todos:1.0.0 | bzip2 > todos_3.tar
 ```
-$ docker save -o todos.tar todos
 
-$ ls -sh todos.tar
-
-2.7M todos.tar
+### Step 2 - Verify image files
 
 ```
-- Way 4 (More compression)
+ls -sh todos.tar
 ```
-$ docker save todos | bzip2 > todos.tar
 
-$ ls -sh todos.tar
+### Step 3 - Copy file
 
-1.7M todos.tar
 ```
-### Step 2 - Load an image from a tar archive or STDIN.
-- Way 1
+cp todos.tar /path/to/usb/todos.tar
 ```
-$ docker load < todos.tar
+
+### Step 4 - Remove image from host
+
 ```
-- Way 2
+docker rmi todos:1.0.0
 ```
-$ docker load --input todos.tar
+
+### Step 5 - Load an image from a tar archive or STDIN.
+
+```
+docker load < todos.tar
+docker load --input todos.tar
+```
+
+### Step - Create container
+
+```
+docker run -d -p 3000:3000 --restart=always \
+  --link mongo \
+  -e MONGO_URL=mongodb://mongo:27017/todos \
+  --name=app \
+  todos:1.0.0
 ```
 
 ## USE CASE 3.0 - Share image using registry
