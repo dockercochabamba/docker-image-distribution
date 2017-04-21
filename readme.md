@@ -51,7 +51,7 @@ docker run -it --rm docker/whalesay bash
 cowsay -f turkey.cow aaa
 ```
 
-## USE CASE 2.0 - Share image as file
+## USE CASE 2.0 -  Happy north korean
 So happy man wants to deploy ToDos App in North Korea, the server has the following specifications:
 
 Unknown but same to “EC2 - t1.micro”
@@ -59,6 +59,54 @@ Unknown but same to “EC2 - t1.micro”
   - MEM: 0.6GB
 
 They have not a Internet connection, but there is a USB port in the server.
+
+## USE CASE 2.1 - Resources & Limitations (RAM & CPU)
+
+### Step 1 - Create our stress dockerfile to verify that limiting resources is working
+```
+FROM fedora:latest
+RUN yum -y install stress && yum clean all
+ENTRYPOINT ["stress"]
+```
+### Step 2 - Build our Dockerfile to hava an "stress" image
+```
+docker build -t stress .
+```
+### Step 3 - Verify our image is available
+```
+docker images
+```
+### Step 4 - Check if our stress image works
+```
+docker run -it --rm stress --cpu 4
+```
+### Step 5 - Limit the cpu to use only the first core
+```
+docker run -it --rm --cpuset-cpus=0 stress --cpu 4
+```
+### Step 6 - Limit the cpu to use only the first and third core
+```
+docker run -it --rm --cpuset-cpus=0,2 stress --cpu 4
+```
+
+### Step 7 - As a test lets see how --cpu-period --cpu-quota behave
+```
+docker run -it --rm --cpu-period="100000" --cpu-quota="150000" --cpu-cpus=0 stress --cpu 4
+```
+
+### Step 8 - Now let's limit the memory 
+```
+docker run -it --rm -m 200m stress --vm 1 --vm-bytes 400M --vm-hang 0
+```
+### Step 9 - Get our container name
+```
+docker ps
+```
+### Step 10 - Verify memory limit with docker stats
+```
+docker stats [container_name]
+```
+## USE CASE 2.2 - Share image as file
 
 ### Usage
 
