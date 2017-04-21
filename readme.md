@@ -3,19 +3,20 @@
 
 ## USE CASE 1 - Hello World
 So rich man wants deploy a server with following characteristics:
+
 Amazon EC2 - t2.2xlarge (expert reviewed)
   - vCPU: 8
   - MEM: 32GB
 
 The application that he wants it is a variation of cowsay, called dockersay but he needs a change in this app name to trumpsay.
 
-### Step 1 - Ejecutando mi primer contenedor
+### Step 1 - Run my first container
 
 ```
 docker run --rm docker/whalesay cowsay hello world
 ```
 
-### Step 2 - Ejecutando un contenedor con volumenes
+### Step 2 - My first container with volumes
 
 ```
 docker run --rm \
@@ -23,7 +24,7 @@ docker run --rm \
   docker/whalesay cowsay -f /cowsay/cows/trump.cow "BOOM"
 ```
 
-### Step 3 - Registrando como comando
+### Step 3 - Create an alias
 
 ```
 alias trumpsay="docker run --rm \
@@ -35,15 +36,14 @@ alias trumpsay="docker run --rm \
 trumpsay BURN FU BURN, BOOM
 ```
 
-### Step 4 - Debug de un contenedor
+### Step 4 - Container debug
 
 ```
 docker run -it --rm docker/whalesay bash
 ```
 
 ```
-ls
-pwd
+(pwd && ls -lh)
 (cd cows && ls)
 ```
 
@@ -53,15 +53,19 @@ cowsay -f turkey.cow aaa
 
 ## USE CASE 2.0 - Share image as file
 So happy man wants to deploy ToDos App in North Korea, the server has the following specifications:
+
 Unknown but same to “EC2 - t1.micro”
   - vCPU: 1
   - MEM: 0.6GB
+
 They have not a Internet connection, but there is a USB port in the server.
 
 ### Usage
+
 ```
 $ docker save [OPTIONS] IMAGE [IMAGE...]
 ```
+
 ### Step 1 - Create a backup that can then be used with docker load.
  - Way 1 
 ```
