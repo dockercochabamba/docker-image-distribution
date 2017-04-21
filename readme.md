@@ -51,6 +51,62 @@ docker run -it --rm docker/whalesay bash
 cowsay -f turkey.cow aaa
 ```
 
+## USE CASE 1.5 - Deploy meteor app
+Now lets deploy a meteor app locally
+
+### Step 1 - Meteor project app
+
+First we need a meteor project app, so lets use this zip file:
+- [todos.tar.gz](https://github.com/dockercochabamba/docker-image-distribution/blob/develop/case_1_5/todos.tar.gz)
+
+### Step 2 - Pull mongo and node images
+
+Our meteor project runs with node 4.8.1 and mongo 3:2 so we need the next images:
+- [NodeJS:4.8.1]()
+- [MongoDB:3.2]()
+
+### Step 3 - How to create a docker image
+
+Lets see the **Dockerfile** for this example
+- [Dockerfile](https://github.com/dockercochabamba/docker-image-distribution/blob/develop/case_1_5/Dockerfile)
+
+Run this command to create an image:
+```
+docker build -t todos:1.0.0 .
+```
+
+### Step 4 - How to deploy mongo
+
+Lets run mongo image
+```
+docker run -d -p 27017:27017 --restart=always \
+    --name mongo \
+    -v `pwd`/database/:/data/db \
+    mongo:3.2
+```
+
+### Step 5 - How to deploy node (meteor app)
+
+Lets run node image
+```
+docker run -d -p 3000:3000 --restart=always \
+  --link mongo \
+  -e MONGO_URL=mongodb://mongo:27017/todos \
+  --name=app \
+  todos:1.0.0
+```
+
+## Step 6 - Loggin mongo and bash console
+Mongo logs
+```
+docker logs mongo
+```
+
+Mongo console
+```
+docker exec -it mongo bash
+```
+
 ## USE CASE 2.0 -  Happy north korean
 So happy man wants to deploy ToDos App in North Korea, the server has the following specifications:
 
