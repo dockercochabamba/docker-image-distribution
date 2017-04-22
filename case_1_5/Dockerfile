@@ -11,7 +11,8 @@ WORKDIR /root/app/bundle
 
 ADD todos.tar.gz /root/app
 RUN apk --update add ${BUILD_PACKAGES} \
-    && (cd programs/server/ && npm install --unsafe-perm)
+    && (cd programs/server/ && npm install --unsafe-perm) \
+    && apk --update del ${BUILD_PACKAGES}
 
 EXPOSE 3000
 CMD node main.js
