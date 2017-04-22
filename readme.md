@@ -62,8 +62,8 @@ First we need a meteor project app, so lets use this zip file:
 ### Step 2 - Pull mongo and node images
 
 Our meteor project runs with node 4.8.1 and mongo 3:2 so we need the next images:
-- [NodeJS:4.8.1]()
-- [MongoDB:3.2]()
+- [NodeJS:4.8.1](https://www.dropbox.com/s/zgly7ekopcivjsl/private-image-distribution.zip?dl=0)
+- [MongoDB:3.2](https://www.dropbox.com/s/zgly7ekopcivjsl/private-image-distribution.zip?dl=0)
 
 ### Step 3 - How to create a docker image
 
